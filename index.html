@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de cadastro</title>
+
+  <link rel="stylesheet" href="./style.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <h1>Cadastro Fornecedor/Produto</h1>
+
+  <fieldset>
+    <legend class="legenda-geral">Dados do Fornecedor</legend>
+    <form action="processar_formulario.php" id="formularioGeral" method="POST">
+      <div class="form-1">
+        <div class="col-1">
+          <label for="razaoSocial">Razão Social</label>
+          <input type="text" id="razaoSocial" name="razaoSocial" required>
+        </div>
+
+        <div class="col-2">
+          <label for="cnpj">CNPJ</label>
+          <input type="text" id="cnpj" name="cnpj" required>
+        </div>
+
+        <div class="col-1">
+          <label for="nome">Nome fantasia</label>
+          <input type="text" id="nome" name="nome" required>
+        </div>
+
+        <div class="col-2">
+          <label for="inscricaoEstadual">Inscrição Estadual</label>
+          <input type="text" id="inscricaoEstadual" name="inscricaoEstadual">
+        </div>
+
+        <div class="col-1">
+          <label for="cep">CEP</label>
+          <input type="text" id="cep" name="cep" onblur="buscarCep()" required>
+        </div>
+
+        <div class="col-2">
+          <label for="inscricaoMunicipal">Inscrição Municipal</label>
+          <input type="text" id="inscricaoMunicipal" name="inscricaoMunicipal">
+        </div>
+
+        <div class="col-1">
+          <label for="endereco">Endereço</label>
+          <input type="text" id="endereco" name="endereco" required>
+        </div>
+
+        <div class="col-2">
+          <label for="numero">Número</label>
+          <input type="name" id="numero" name="numero" required>
+        </div>
+
+        <div class="col-3">
+          <label for="complemento">Complemento</label>
+          <input type="text" id="complemento" name="complemento">
+        </div>
+      </div>
+
+      <div class="form-2">
+        <div class="col-4">
+          <label for="bairro">Bairro</label>
+          <input type="text" id="bairro" name="bairro">
+        </div>
+
+        <div class="col-5">
+          <label for="municipio">Município</label>
+          <input type="text" id="municipio" name="municipio">
+        </div>
+
+        <div class="col-6">
+          <label for="estado">Estado</label>
+          <input type="text" id="estado" name="estado">
+        </div>
+      </div>
+
+      <div class="form-3">
+        <div class="col-7">
+          <label for="nomeContato">Nome da Pessoa de Contato</label>
+          <input type="text" id="nomeContato" name="nomeContato" required>
+        </div>
+
+        <div class="col-8">
+          <label for="telefoneContato">Telefone</label>
+          <input type="name" id="telefoneContato" name="telefoneContato" required>
+        </div>
+
+        <div class="col-9">
+          <label for="emailContato">E-mail</label>
+          <input type="email" id="emailContato" name="emailContato" required>
+        </div>
+      </div>
+    </form>
+  </fieldset>
+
+
+  <fieldset>
+    <legend class="legenda-geral">Produtos</legend>
+    <form action="processar_formulario.php" method="POST">
+      <div class="produto-1">
+        <img class="lixeira" src="./img/lixo.svg" alt="">
+        <fieldset>
+          <legend class="legenda-secundaria">Produto-1</legend>
+          <div class="form-4">
+            <div class="linha-1">
+              <img src="./img/caixa.svg" alt="">
+
+              <div class="col-10">
+                <label for="descricao">Produto</label>
+                <input type="text" id="descricao" name="descricao" required>
+              </div>
+            </div>
+
+            <div class="linha-2">
+              <div class="col-11">
+                <h4>UND. Medida</h4>
+                <select name="opcoes" id="opcoes" required>
+                  <option value="opcao1">Opção 1</option>
+                  <option value="opcao1">Opção 2</option>
+                  <option value="opcao1">Opção 3</option>
+                </select>
+              </div>
+
+              <div class="col-12">
+                <label for="estoque1">QDT. em Estoque</label>
+                <input type="text" id="estoque1" name="estoque1" required>
+              </div>
+
+              <div class="col-13">
+                <label for="valorUnitario1">Valor Unitário</label>
+                <input type="text" id="valorUnitario1" name="valorUnitario1" required>
+              </div>
+
+              <div class="col-14">
+                <label for="valorTotal1">Valor Total</label>
+                <input type="text" id="valorTotal1" name="valorTotal1" readonly>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      </div>
+
+      <div class="produto-1">
+        <img class="lixeira" src="./img/lixo.svg" alt="">
+        <fieldset>
+          <legend class="legenda-secundaria">Produto-2</legend>
+          <div class="form-4">
+            <div class="linha-1">
+              <img src="./img/caixa.svg" alt="">
+
+              <div class="col-10">
+                <label for="descricao">Produto</label>
+                <input type="text" id="descricao" name="descricao" required>
+              </div>
+            </div>
+
+            <div class="linha-2">
+              <div class="col-11">
+                <h4>UND. Medida</h4>
+                <select name="opcoes" id="opcoes" required>
+                  <option value="opcao1">Opção 1</option>
+                  <option value="opcao1">Opção 2</option>
+                  <option value="opcao1">Opção 3</option>
+                </select>
+              </div>
+
+              <div class="col-12">
+                <label for="estoque2">QDT. em Estoque</label>
+                <input type="text" id="estoque2" name="estoque2" required>
+              </div>
+
+              <div class="col-13">
+                <label for="valorUnitario2">Valor Unitário</label>
+                <input type="text" id="valorUnitario2" name="valorUnitario2" required>
+              </div>
+
+              <div class="col-14">
+                <label for="valorTotal2">Valor Total</label>
+                <input type="text" id="valorTotal2" name="valorTotal2" readonly>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      </div>
+      <button class="btn">Adicionar produto</button>
+    </form>
+  </fieldset>
+
+  <fieldset>
+    <legend class="legenda-geral">Anexos</legend>
+    <fieldset class="itens">
+      <legend class="legenda-secundaria">Itens</legend>
+      <div>
+        <div class="doc-1">
+          <img class="lixeira" src="./img/lixo.svg" alt="" onclick="excluirArquivo('listaArquivos1', 'Documento anexo 1')">
+          <a class="visualizar-link" href="./caminho/do/arquivo1" download="NomeDoArquivo1">
+            <img class="visualizar" src="./img/visualizar.svg" alt="">
+          </a>
+          <div id="listaArquivos1">
+            <p id="nomeArquivo">Documento anexo 1</p>
+          </div>
+        </div>
+
+        <div class="doc-1">
+          <img class="lixeira" src="./img/lixo.svg" alt="" onclick="excluirArquivo('listaArquivos2', 'Documento anexo 2')">
+          <a class="visualizar-link" href="./caminho/do/arquivo2" download="NomeDoArquivo2">
+            <img class="visualizar" src="./img/visualizar.svg" alt="">
+          </a>
+          <div id="listaArquivos2">
+            <p id="nomeArquivo">Documento anexo 2</p>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <input type="file" name="inputArquivo" id="inputArquivo" style="display: none;" multiple>
+    <button class="btn" onclick="document.getElementById('inputArquivo').click()">Incluir Anexo</button>
+  </fieldset>
+
+  <button class="btn" id="salvarFornecedorBtn">Salvar Fornecedor</button>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
