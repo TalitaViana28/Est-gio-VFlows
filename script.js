@@ -12,7 +12,7 @@ function buscarCep() {
     .catch((error) => console.error('Erro ao buscar CEP:', error));
 }
 
-/*Cálculo valor total Produto-1*/
+/*Cálculo valor total Produto*/
 function calcularValorTotal(estoqueId, valorUnitarioId, valorTotalId) {
   var estoque = parseFloat(document.getElementById(estoqueId).value);
   var valorUnitario = parseFloat(
@@ -56,48 +56,127 @@ $(document).ready(function () {
   $('#salvarFornecedorBtn').click(function (e) {
     e.preventDefault();
 
+    // Extrair os valores dos campos do fornecedor
+    var razaoSocial = $('#razaoSocial').val();
+    var cnpj = $('#cnpj').val();
+    var nomeFantasia = $('#nome').val();
+    var inscricaoEstadual = $('#inscricaoEstadual').val();
+    var cep = $('#cep').val();
+    var inscricaoMunicipal = $('#inscricaoMunicipal').val();
+    var endereco = $('#endereco').val();
+    var numero = $('#numero').val();
+    var complemento = $('#complemento').val();
+    var bairro = $('#bairro').val();
+    var municipio = $('#municipio').val();
+    var estado = $('#estado').val();
+    var nomeContato = $('#nomeContato').val();
+    var telefoneContato = $('#telefoneContato').val();
+    var emailContato = $('#emailContato').val();
+
+    // Construir objeto do fornecedor
+    var fornecedor = {
+      razaoSocial: razaoSocial,
+      cnpj: cnpj,
+      nomeFantasia: nomeFantasia,
+      inscricaoEstadual: inscricaoEstadual,
+      cep: cep,
+      inscricaoMunicipal: inscricaoMunicipal,
+      endereco: endereco,
+      numero: numero,
+      complemento: complemento,
+      bairro: bairro,
+      municipio: municipio,
+      estado: estado,
+      nomeContato: nomeContato,
+      telefoneContato: telefoneContato,
+      emailContato: emailContato,
+    };
+
+    // Extrair os valores dos campos dos produtos
+    var produtos = [];
+    $('.produto-1').each(function (index) {
+      var descricao = $(this).find('.descricao').val();
+      var opcoes = $(this).find('.opcoes').val();
+      var estoque = $(this).find('.estoque').val();
+      var valorUnitario = $(this).find('.valor-unitario').val();
+      var valorTotal = $(this).find('.valor-total').val();
+
+      var produto = {
+        indice: index + 1,
+        descricaoProduto: descricao,
+        unidadeMedida: opcoes,
+        qtdeEstoque: estoque,
+        valorUnitario: valorUnitario,
+        valorTotal: valorTotal,
+      };
+
+      produtos.push(produto);
+    });
+
+    // Construir objeto do JSON
     var dados = {
-      usuario: [
-        {
-          razaoSocial: 'Razao social',
-          nomeFantasia: 'Nome Fantasia',
-          cnpj: '123456',
-          inscricaoEstadual: '123456',
-          inscricaoMunicipal: '123456',
-          nomeContato: 'Nome contato',
-          telefoneContato: 'email@email.com',
-        },
-      ],
-      produtos: [
-        {
-          indice: 1,
-          descricaoProduto: 'Descrição produto',
-          unidadeMedida: 'unidadeMedida',
-          qtdeEstoque: '123',
-          valorUnitario: '1554.00',
-          valorTotal: '2555.00',
-        },
-        {
-          indice: 2,
-          descricaoProduto: 'Descrição produto',
-          unidadeMedida: 'unidadeMedida',
-          qtdeEstoque: '123',
-          valorUnitario: '1554.00',
-          valorTotal: '2555.00',
-        },
-      ],
-      anexos: [
-        {
-          indice: 1,
-          nomeArquivo: 'iouahsiuahusihausihiahiuah',
-          blobArquivo: 'iouahsiuahusihausihiahiuah',
-        },
-        {
-          indice: 2,
-          nomeArquivo: 'iouahsiuahusihausihiahiuah',
-          blobArquivo: 'iouahsiuahusihausihiahiuah',
-        },
-      ],
+      fornecedor: fornecedor,
+      produtos: produtos,
+    };
+
+    // Enviar dados para o servidor
+    $.ajax({
+      type: 'POST',
+      url: 'processar_formulario.php',
+      contentType: 'application/json',
+      data: JSON.stringify(dados),
+      success: function (response) {
+        alert('Fornecedor salvo com sucesso');
+      },
+      error: function (xhr, status, error) {
+        console.log(error);
+        alert(
+          'Ocorreu um erro ao salvar o fornecedor. Por favor, tente novamente.',
+        );
+      },
+    });
+  });
+});
+
+/* Adicionar função ao adicionarProduto*/
+$(document).ready(function () {
+  var produtoIndex = 2; // Começando com 2, já que temos produtos 1 e 2 no HTML
+
+  $('#adicionarProduto').click(function (e) {
+    e.preventDefault();
+
+    var novoProdutoHtml = `
+      <div class="produto-${produtoIndex}">
+        <!-- Campos do novo produto -->
+        <!-- ... -->
+      </div>
+    `;
+
+    $('#formularioProdutos').append(novoProdutoHtml);
+    produtoIndex++;
+  });
+
+  $('#salvarFornecedorBtn').click(function (e) {
+    e.preventDefault();
+
+    // Aqui você pode obter os dados de todos os produtos adicionados dinamicamente
+    var produtos = [];
+    $('.form-produtos').each(function (index, form) {
+      var produto = {
+        indice: index + 1,
+        descricaoProduto: $(form).find('.descricao').val(),
+        unidadeMedida: $(form).find('.opcoes').val(),
+        qtdeEstoque: $(form).find('.estoque').val(),
+        valorUnitario: $(form).find('.valor-unitario').val(),
+        valorTotal: $(form).find('.valor-total').val(),
+      };
+      produtos.push(produto);
+    });
+
+    var dados = {
+      // Seus dados do fornecedor
+      produtos: produtos,
+      // Seus dados de anexos
     };
 
     $.ajax({
